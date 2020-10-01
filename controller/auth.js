@@ -56,6 +56,7 @@ const login = async(req, res = response) => {
                 msg: 'email no encontrado'
             });
         }
+
         // Validar el password
         const validarPass = bcrypt.compareSync(password, usuarioDB.password);
         if (!validarPass) {
@@ -66,6 +67,11 @@ const login = async(req, res = response) => {
         }
         //Generar el JWT
         const token = await generarJWT(usuarioDB.id);
+        res.json({
+            ok: true,
+            usuario: usuarioDB,
+            token
+        })
 
 
     } catch (error) {
